@@ -8,23 +8,27 @@
 </head>
 <body>
   <div class="container">
-    <h1>Ucapan dan Doa</h1>
-    <div id="content">
-      <button id="randomBtn">Dapatkan Ucapan dan Doa Acak</button>
-      <div id="randomResult"></div>
-      <h2>Tambah Ucapan dan Doa</h2>
-      <form id="ucapanForm">
-        <input type="text" id="ucapan" placeholder="Ucapan" required>
-        <input type="text" id="doa" placeholder="Doa" required>
-        <select id="kehadiran" required>
-          <option value="hadir">Hadir</option>
-          <option value="tidak hadir">Tidak Hadir</option>
-          <option value="ragu-ragu">Ragu-ragu</option>
-        </select>
-        <button type="submit">Tambah</button>
-      </form>
-      <div id="addResult"></div>
-    </div>
+    <h1>Form Ucapan dan Doa</h1>
+    <form id="ucapanForm">
+      <label for="nama">Nama:</label>
+      <input type="text" id="nama" name="nama" required>
+      
+      <label for="ucapan">Ucapan:</label>
+      <textarea id="ucapan" name="ucapan" required></textarea>
+      
+      <label for="doa">Doa:</label>
+      <textarea id="doa" name="doa" required></textarea>
+      
+      <label for="kehadiran">Kehadiran:</label>
+      <select id="kehadiran" name="kehadiran" required>
+        <option value="Hadir">Hadir</option>
+        <option value="Tidak Hadir">Tidak Hadir</option>
+        <option value="Ragu-ragu">Ragu-ragu</option>
+      </select>
+      
+      <button type="submit">Kirim</button>
+    </form>
+    <div id="ucapanDoaList"></div>
   </div>
   <script src="script.js"></script>
 </body>
