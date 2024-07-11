@@ -1,46 +1,54 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const randomBtn = document.getElementById("randomBtn");
-  const randomResult = document.getElementById("randomResult");
-  const ucapanForm = document.getElementById("ucapanForm");
-  const addResult = document.getElementById("addResult");
+document.getElementById("ucapanForm").addEventListener("submit", function(event) {
+  event.preventDefault();
 
-  const baseURL = "https://handle-pesan-dengan-array-server.glitch.me";  // Ganti dengan URL proyek Glitch Anda
+  const nama = document.getElementById("nama").value;
+  const ucapan = document.getElementById("ucapan").value;
+  const doa = document.getElementById("doa").value;
+  const kehadiran = document.getElementById("kehadiran").value;
 
-  randomBtn.addEventListener("click", () => {
-    fetch(`${baseURL}/random`)
-      .then(response => response.json())
-      .then(data => {
-        randomResult.innerHTML = `<p><strong>Ucapan:</strong> ${data.ucapan}</p>
-                                  <p><strong>Doa:</strong> ${data.doa}</p>
-                                  <p><strong>Kehadiran:</strong> ${data.kehadiran}</p>`;
-      })
-      .catch(error => {
-        randomResult.innerHTML = "<p>Error fetching data</p>";
-        console.error("Error fetching data:", error);
-      });
-  });
+  const newUcapanDoa = {
+    nama: nama,
+    ucapan: ucapan,
+    doa: doa,
+    kehadiran: kehadiran
+  };
 
-  ucapanForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const ucapan = document.getElementById("ucapan").value;
-    const doa = document.getElementById("doa").value;
-    const kehadiran = document.getElementById("kehadiran").value;
-
-    fetch(`${baseURL}/ucapan`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      body: `ucapan=${encodeURIComponent(ucapan)}&doa=${encodeURIComponent(doa)}&kehadiran=${encodeURIComponent(kehadiran)}`
-    })
-      .then(response => response.json())
-      .then(data => {
-        addResult.innerHTML = `<p>Ucapan dan Doa berhasil ditambahkan!</p>`;
-        ucapanForm.reset();
-      })
-      .catch(error => {
-        addResult.innerHTML = "<p>Error adding data</p>";
-        console.error("Error adding data:", error);
-      });
-  });
+  fetch("https://handle-pesan-dengan-array-server.glitch.me/ucapan", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: new URLSearchParams(newUcapanDoa)
+  })
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById("ucapanForm").reset();
+    addUcapanDoaToList(data);
+  })
+  .catch(error => console.error("Error:", error));
 });
+
+function addUcapanDoaToList(ucapanDoa) {
+  const list = document.getElementById("ucapanDoaList");
+
+  const ucapanDoaItem = document.createElement("div");
+  ucapanDoaItem.className = "ucapanDoa";
+  ucapanDoaItem.innerHTML = `<strong>Nama:</strong> ${ucapanDoa.nama} <br>
+                             <strong>Ucapan:</strong> ${ucapanDoa.ucapan} <br>
+                             <strong>Doa:</strong> ${ucapanDoa.doa} <br>
+                             <strong>Kehadiran:</strong> ${ucapanDoa.kehadiran}`;
+
+  list.appendChild(ucapanDoaItem);
+}
+
+// Load all ucapan dan doa on page load
+window.onload = function() {
+  fetch("https://handle-pesan-dengan-array-server.glitch.me/ucapan")
+  .then(response => response.json())
+  .then(data => {
+    data.forEach(ucapanDoa => {
+      addUcapanDoaToList(ucapanDoa);
+    });
+  })
+  .catch(error => console.error("Error:", error));
+};
