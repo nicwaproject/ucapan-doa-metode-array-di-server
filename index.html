@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ucapan dan Doa</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Ucapan dan Doa</h1>
+    <div id="content">
+      <button id="randomBtn">Dapatkan Ucapan dan Doa Acak</button>
+      <div id="randomResult"></div>
+      <h2>Tambah Ucapan dan Doa</h2>
+      <form id="ucapanForm">
+        <input type="text" id="ucapan" placeholder="Ucapan" required>
+        <input type="text" id="doa" placeholder="Doa" required>
+        <select id="kehadiran" required>
+          <option value="hadir">Hadir</option>
+          <option value="tidak hadir">Tidak Hadir</option>
+          <option value="ragu-ragu">Ragu-ragu</option>
+        </select>
+        <button type="submit">Tambah</button>
+      </form>
+      <div id="addResult"></div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
