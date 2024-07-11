@@ -2,14 +2,12 @@ document.getElementById("ucapanForm").addEventListener("submit", function(event)
   event.preventDefault();
 
   const nama = document.getElementById("nama").value;
-  const ucapan = document.getElementById("ucapan").value;
-  const doa = document.getElementById("doa").value;
+  const ucapanDoa = document.getElementById("ucapanDoa").value;
   const kehadiran = document.getElementById("kehadiran").value;
 
   const newUcapanDoa = {
     nama: nama,
-    ucapan: ucapan,
-    doa: doa,
+    ucapanDoa: ucapanDoa,
     kehadiran: kehadiran
   };
 
@@ -34,8 +32,7 @@ function addUcapanDoaToList(ucapanDoa) {
   const ucapanDoaItem = document.createElement("div");
   ucapanDoaItem.className = "ucapanDoa";
   ucapanDoaItem.innerHTML = `<strong>Nama:</strong> ${ucapanDoa.nama} <br>
-                             <strong>Ucapan:</strong> ${ucapanDoa.ucapan} <br>
-                             <strong>Doa:</strong> ${ucapanDoa.doa} <br>
+                             <strong>Ucapan & Doa:</strong> ${ucapanDoa.ucapanDoa} <br>
                              <strong>Kehadiran:</strong> ${ucapanDoa.kehadiran}`;
 
   list.appendChild(ucapanDoaItem);
